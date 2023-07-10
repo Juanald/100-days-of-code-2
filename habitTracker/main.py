@@ -1,9 +1,9 @@
 import requests
 import datetime as dt
 import auth
-USERNAME = "gavin123"
-TOKEN = "hawhgowiaghoi"
-GRAPH_ID = "graph1"
+USERNAME = auth.USERNAME
+TOKEN = auth.TOKEN
+GRAPH_ID = auth.GRAPH_ID
 
 pixela_endpoint = "https://pixe.la/v1/users"
 user_params = {
