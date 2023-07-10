@@ -44,7 +44,6 @@ class StockBot():
 
         increase = prev_close - prev_prev_close
         percent_change = round(increase / prev_prev_close * 100, 2)
-        print(percent_change)
         return percent_change
 
     # Now we have to access relevant news using news api
