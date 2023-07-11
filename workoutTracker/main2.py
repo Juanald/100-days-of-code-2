@@ -50,7 +50,7 @@ def post_to_sheet(data):
         }
         response = requests.post(url=SHEETS_ENDPOINT, json=parameters, headers=bearer_headers)
         response.raise_for_status()
-        print("Complete")
+        print("Exercise has been posted to spreadsheet.")
 
 if __name__ == "__main__":
     post_to_sheet(process_query())
