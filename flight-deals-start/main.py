@@ -3,12 +3,14 @@ import data_manager, flight_search, notification_manager
 from pprint import pprint
 
 ORIGIN_CITY_IATA = "YYZ"
+SHEET_DATA = """[{'city': 'Paris', 'iataCode': 'PAR', 'lowestPrice': 2000, 'id': 2}, {'city': 'Berlin', 'iataCode': 'BER', 'lowestPrice': 42, 'id': 3}, {'city': 'Tokyo', 'iataCode': 'TYO', 'lowestPrice': 485, 'id': 4}, {'city': 'Sydney', 'iataCode': 'SYD', 'lowestPrice': 551, 'id': 5}, {'city': 'Istanbul', 'iataCode': 'IST', 'lowestPrice': 95, 'id': 6}, {'city': 'Kuala Lumpur', 'iataCode': 'KUL', 'lowestPrice': 414, 'id': 7}, {'city': 'New York', 'iataCode': 'NYC', 'lowestPrice': 240, 'id': 8}, {'city': 'San Francisco', 'iataCode': 'SFO', 'lowestPrice': 260, 'id': 9}, {'city': 'Cape Town', 'iataCode': 'CPT', 'lowestPrice': 378, 'id': 10}]"""
 
 datamanager = data_manager.DataManager()
 flight_searcher = flight_search.FlightSearch()
 telegram_bot = notification_manager.NotificationManager()
 
 def pop_IATA(sheet_data):
+    # Call this function if you want to populate IATA codes within the sheet
     for data in sheet_data:
         if len(data['iataCode']) == 0:
             data['iataCode'] = flight_searcher.give_IATA(data['city'])
@@ -16,10 +18,7 @@ def pop_IATA(sheet_data):
 
 
 def main():
-    
-    sheet_data = datamanager.get_data()
-    pop_IATA(sheet_data)
-    for data in sheet_data:
+    for data in SHEET_DATA:
         flight = flight_searcher.find_flights(ORIGIN_CITY_IATA, data['iataCode'], data['city'])
         try:
             print(f"{data['city']}: ${flight.price}")
