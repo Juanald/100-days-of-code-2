@@ -3,7 +3,7 @@ import data_manager, flight_search, notification_manager
 from pprint import pprint
 
 ORIGIN_CITY_IATA = "YYZ"
-SHEET_DATA = [{'city': 'Paris', 'iataCode': 'PAR', 'lowestPrice': 2000, 'id': 2}, {'city': 'Berlin', 'iataCode': 'BER', 'lowestPrice': 42, 'id': 3}, {'city': 'Tokyo', 'iataCode': 'TYO', 'lowestPrice': 485, 'id': 4}, {'city': 'Sydney', 'iataCode': 'SYD', 'lowestPrice': 551, 'id': 5}, {'city': 'Istanbul', 'iataCode': 'IST', 'lowestPrice': 95, 'id': 6}, {'city': 'Kuala Lumpur', 'iataCode': 'KUL', 'lowestPrice': 414, 'id': 7}, {'city': 'New York', 'iataCode': 'NYC', 'lowestPrice': 240, 'id': 8}, {'city': 'San Francisco', 'iataCode': 'SFO', 'lowestPrice': 260, 'id': 9}, {'city': 'Cape Town', 'iataCode': 'CPT', 'lowestPrice': 378, 'id': 10}]
+SHEET_DATA = [{'city': 'Paris', 'iataCode': 'PAR', 'lowestPrice': 2000, 'id': 2}, {'city': 'Berlin', 'iataCode': 'BER', 'lowestPrice': 42, 'id': 3}, {'city': 'Tokyo', 'iataCode': 'TYO', 'lowestPrice': 485, 'id': 4}, {'city': 'Sydney', 'iataCode': 'SYD', 'lowestPrice': 551, 'id': 5}, {'city': 'Istanbul', 'iataCode': 'IST', 'lowestPrice': 95, 'id': 6}, {'city': 'Kuala Lumpur', 'iataCode': 'KUL', 'lowestPrice': 414, 'id': 7}, {'city': 'New York', 'iataCode': 'NYC', 'lowestPrice': 240, 'id': 8}, {'city': 'San Francisco', 'iataCode': 'SFO', 'lowestPrice': 260, 'id': 9}, {'city': 'Cape Town', 'iataCode': 'CPT', 'lowestPrice': 378, 'id': 10}, {'city': 'Bali', 'iataCode': 'DPS', 'id': 11}]
 
 datamanager = data_manager.DataManager()
 flight_searcher = flight_search.FlightSearch()
@@ -18,11 +18,15 @@ def pop_IATA(sheet_data):
 
 
 def main():
+    # SHEET_DATA = datamanager.get_data()
+    # print(SHEET_DATA)
     for data in SHEET_DATA:
         flight = flight_searcher.find_flights(ORIGIN_CITY_IATA, data['iataCode'], data['city'])
-        try:
-            print(f"{data['city']}: ${flight.price}")
-        except AttributeError:
+        # try:
+        #     print(f"{data['city']}: ${flight.price}")
+        # except AttributeError:
+        #     continue
+        if flight is None:
             continue
         if flight.price < data['lowestPrice']:
             message = f"""Low price alert! Only ${flight.price} to fly from {flight.departure_city}-{flight.departure_airport_code} to {flight.destination_city}-{flight.destination_airport} from {flight.fly_date} to {flight.return_date}!"""

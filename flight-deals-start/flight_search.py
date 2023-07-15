@@ -43,19 +43,19 @@ class FlightSearch:
         response.raise_for_status()
         try:
             flight_json = response.json()['data'][0]
+            print(f"{city_to} ${flight_json['price']}")
         except IndexError as e:
             print(f"Sorry! No flights found for {city_to}")
             return None
-        
-        
-        price = flight_json['price']
-        departure_code = flight_json['route'][0]['flyFrom']
-        departure_city = flight_json['route'][0]['cityFrom']
-        destination_city = flight_json['route'][0]['cityTo']
-        destination_airport = flight_json['route'][0]['flyTo']
-        fly_date = flight_json['route'][0]['local_departure'].split('T')[0]
-        return_date = flight_json['route'][1]['local_departure'].split('T')[0]
-        new_flight = flight_data.FlightData(price, departure_code, departure_city, destination_city, destination_airport, fly_date, return_date)
-        self.flights_found.append(new_flight)
+        else:
+            price = flight_json['price']
+            departure_code = flight_json['route'][0]['flyFrom']
+            departure_city = flight_json['route'][0]['cityFrom']
+            destination_city = flight_json['route'][0]['cityTo']
+            destination_airport = flight_json['route'][0]['flyTo']
+            fly_date = flight_json['route'][0]['local_departure'].split('T')[0]
+            return_date = flight_json['route'][1]['local_departure'].split('T')[0]
+            new_flight = flight_data.FlightData(price, departure_code, departure_city, destination_city, destination_airport, fly_date, return_date)
+            self.flights_found.append(new_flight)
 
         return new_flight
