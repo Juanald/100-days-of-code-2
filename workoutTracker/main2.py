@@ -23,6 +23,8 @@ bearer_headers = {
 
 def process_query():
     query = input("What exercises did you do today? ")
+    if query.lower() == 'none':
+        print("Here's a five minute workout you can do today!\n5 minute plank! NOW!")
     parameters = {
         "query" : query,
         "gender" : GENDER,
