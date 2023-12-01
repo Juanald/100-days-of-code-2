@@ -1,2 +1,5 @@
 # 100daysofcodept2
-Added pt2 to learn how to use git 
+This is part 2 of Angela Yu's Udemy course for Python.
+
+# Git
+This repository makes use of Git in the creation and modification of projects. 
